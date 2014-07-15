@@ -128,11 +128,13 @@ class LinkedList
     second_item = get_item(index + 1)
     third_item = get_item(index + 2)
 
-    if index == 0
+    if index == 0 # the edge case where the item's index is 0 and there is no 'previous_item';
+      # used when you want to convert A B C D to B A C D
       @first_item = second_item
       second_item.next_item = current_item
       current_item.next_item = third_item
-    else
+    else # used when you want to convert A B C D to A C B D
+      # you're reassigning where each item's 'pointer' points to
       previous_item = get_item(index - 1)
       previous_item.next_item = second_item
       second_item.next_item = current_item
