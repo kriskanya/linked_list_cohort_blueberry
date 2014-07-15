@@ -34,7 +34,7 @@ class LinkedListTest < MiniTest::Unit::TestCase
   end
 
   def test_06a_get_negative_index_raises_index_error
-    ll = LinkedList.new("a")
+    ll = LinkedList.new
     assert_raises IndexError do
       ll.get(-1)
     end
