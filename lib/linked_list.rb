@@ -26,7 +26,7 @@ class LinkedList
   end
 
   #this is a write method, as it changes some values
-  def []=(index, payload)  # this is a special method which takes the index into account, e.g., ll[1] = 'bar-be'que
+  def []=(index, payload)  # this is a special method which takes the index into account, e.g., ll[1] = 'bar-be-que'
     item = get_item(index)
     item.payload = payload
   end
@@ -67,11 +67,6 @@ class LinkedList
     index.times do
       raise IndexError if current_item.nil?
       current_item = current_item.next_item
-      # if current_item
-      #   current_item = current_item.next_item
-      # else
-      #   raise IndexError
-      # end
     end
     current_item
   end
