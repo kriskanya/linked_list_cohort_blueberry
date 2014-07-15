@@ -104,6 +104,56 @@ class LinkedList
     end
   end
 
+  def sorted?
+    current_item = @first_item
+    if @size <= 1
+      return true
+    else
+      until current_item.last?  # goes through the entire ll
+        if current_item > current_item.next_item  # if the value of the current item is greater than the value of the next item, then return false (as it's not in order)
+          return false
+        else  # otherwise, set the current_item to that next_item and continue looping
+          current_item = current_item.next_item
+        end
+      end
+      true  # if false is not returned above, return true (this is part of the until loop)
+    end
+  end
+
+  def swap_with_next(index)
+    # this problem is easier to figure out if you draw it out, and assign a variable to each letter
+    # A B C D (initial)
+    # A C B D (intended result)
+    current_item = get_item(index)
+    second_item = get_item(index + 1)
+    third_item = get_item(index + 2)
+
+    if index == 0
+      @first_item = second_item
+      second_item.next_item = current_item
+      current_item.next_item = third_item
+    else
+      previous_item = get_item(index - 1)
+      previous_item.next_item = second_item
+      second_item.next_item = current_item
+      current_item.next_item = third_item
+    end
+  end
+
+  def sort!
+    current_item = @first_item
+    until sorted?  # until sorted is true, do the following
+      result = current_item <=> current_item.next_item  # use the comparison operator (we redefined this in linked_list_item.rb)
+      if result == 1  # <=> -1 means less than, 0 means both are equal, 1 means greater than - this means that if current_item > current_item.next_item, do the following (we want to swap them)
+        index = index(current_item.payload)  # find the index by the payload
+        swap_with_next(index)   # swap the two items in the linked list
+        sort!  # run sort from the beginning (if you didn't, the current_item = @first_item at the top would remain its old value)
+      else
+        current_item = current_item.next_item  # else, set current_item to the next_item
+      end
+    end
+  end
+
   private
 
   def last_item
